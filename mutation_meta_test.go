@@ -110,6 +110,24 @@ func TestEveryExportedEntryFunctionPreservesInput(t *testing.T) {
 		"Equal": func(entry xdr.SorobanAuthorizationEntry) {
 			_ = Equal(entry, entry)
 		},
+		"CheckExpiration": func(entry xdr.SorobanAuthorizationEntry) {
+			_, _ = CheckExpiration(entry, validUntil)
+		},
+		"IsExpired": func(entry xdr.SorobanAuthorizationEntry) {
+			_, _ = IsExpired(entry, validUntil)
+		},
+		"WithinMargin": func(entry xdr.SorobanAuthorizationEntry) {
+			_, _ = WithinMargin(entry, validUntil, 10)
+		},
+		"MergeEntries": func(entry xdr.SorobanAuthorizationEntry) {
+			_, _ = MergeEntries(entry, entry)
+		},
+		"ShapeRegistry.VerifyEntry": func(entry xdr.SorobanAuthorizationEntry) {
+			_, _ = DefaultShapeRegistry().VerifyEntry(entry, "Test SDF Network ; September 2015")
+		},
+		"ShapeRegistry.VerifyEntryContext": func(entry xdr.SorobanAuthorizationEntry) {
+			_, _ = DefaultShapeRegistry().VerifyEntryContext(context.Background(), entry, "Test SDF Network ; September 2015")
+		},
 	}
 
 	discovered := make(map[string]bool, len(functions))

@@ -143,83 +143,83 @@ func TestCheckExpiration(t *testing.T) {
 	}
 
 	tests := []struct {
-		name             string
-		exp              uint32
-		currentLedger    uint32
-		wantValid        bool
-		wantRemaining    uint32
-		wantExpiration   uint32
+		name           string
+		exp            uint32
+		currentLedger  uint32
+		wantValid      bool
+		wantRemaining  uint32
+		wantExpiration uint32
 	}{
 		{
-			name:          "current ledger well before expiration",
-			exp:           1720,
-			currentLedger: 1000,
-			wantValid:     true,
-			wantRemaining: 721,
+			name:           "current ledger well before expiration",
+			exp:            1720,
+			currentLedger:  1000,
+			wantValid:      true,
+			wantRemaining:  721,
 			wantExpiration: 1720,
 		},
 		{
-			name:          "current ledger one before expiration",
-			exp:           1720,
-			currentLedger: 1719,
-			wantValid:     true,
-			wantRemaining: 2,
+			name:           "current ledger one before expiration",
+			exp:            1720,
+			currentLedger:  1719,
+			wantValid:      true,
+			wantRemaining:  2,
 			wantExpiration: 1720,
 		},
 		{
-			name:          "current ledger equals expiration (inclusive bound)",
-			exp:           1720,
-			currentLedger: 1720,
-			wantValid:     true,
-			wantRemaining: 1,
+			name:           "current ledger equals expiration (inclusive bound)",
+			exp:            1720,
+			currentLedger:  1720,
+			wantValid:      true,
+			wantRemaining:  1,
 			wantExpiration: 1720,
 		},
 		{
-			name:          "current ledger one past expiration (rejected)",
-			exp:           1720,
-			currentLedger: 1721,
-			wantValid:     false,
-			wantRemaining: 0,
+			name:           "current ledger one past expiration (rejected)",
+			exp:            1720,
+			currentLedger:  1721,
+			wantValid:      false,
+			wantRemaining:  0,
 			wantExpiration: 1720,
 		},
 		{
-			name:          "current ledger well past expiration",
-			exp:           1720,
-			currentLedger: 5000,
-			wantValid:     false,
-			wantRemaining: 0,
+			name:           "current ledger well past expiration",
+			exp:            1720,
+			currentLedger:  5000,
+			wantValid:      false,
+			wantRemaining:  0,
 			wantExpiration: 1720,
 		},
 		{
-			name:          "expiration at zero, current at zero (valid)",
-			exp:           0,
-			currentLedger: 0,
-			wantValid:     true,
-			wantRemaining: 1,
+			name:           "expiration at zero, current at zero (valid)",
+			exp:            0,
+			currentLedger:  0,
+			wantValid:      true,
+			wantRemaining:  1,
 			wantExpiration: 0,
 		},
 		{
-			name:          "expiration at zero, current at one (rejected)",
-			exp:           0,
-			currentLedger: 1,
-			wantValid:     false,
-			wantRemaining: 0,
+			name:           "expiration at zero, current at one (rejected)",
+			exp:            0,
+			currentLedger:  1,
+			wantValid:      false,
+			wantRemaining:  0,
 			wantExpiration: 0,
 		},
 		{
-			name:          "expiration at max uint32",
-			exp:           math.MaxUint32,
-			currentLedger: math.MaxUint32,
-			wantValid:     true,
-			wantRemaining: 1,
+			name:           "expiration at max uint32",
+			exp:            math.MaxUint32,
+			currentLedger:  math.MaxUint32,
+			wantValid:      true,
+			wantRemaining:  1,
 			wantExpiration: math.MaxUint32,
 		},
 		{
-			name:          "expiration at max uint32 minus one, current at max",
-			exp:           math.MaxUint32 - 1,
-			currentLedger: math.MaxUint32,
-			wantValid:     false,
-			wantRemaining: 0,
+			name:           "expiration at max uint32 minus one, current at max",
+			exp:            math.MaxUint32 - 1,
+			currentLedger:  math.MaxUint32,
+			wantValid:      false,
+			wantRemaining:  0,
 			wantExpiration: math.MaxUint32 - 1,
 		},
 	}
